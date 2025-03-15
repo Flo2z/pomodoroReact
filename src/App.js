@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import PomodoroTimer from "./components/PomodoroTimer";
 import TaskColumn from "./components/TaskColumn";
-
 import styled, { ThemeProvider, createGlobalStyle } from 'styled-components';
 import './App.css';
+import LoginPage from "./LoginPage";
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -157,7 +157,7 @@ const darkTheme = {
   addTaskInputFocusBorder: '#00796b',
   addTaskButtonBg: '#00796b',
   addTaskButtonHoverBg: '#004d40',
-  taskItemBg: '#757575',
+  taskItemBg: '#070606',
   taskItemBoxShadow: '0 2px 6px rgba(0, 0, 0, 0.2)',
   taskActionButton1Bg: '#388e3c',
   taskActionButton1HoverBg: '#2e7d32',
@@ -240,7 +240,10 @@ function App() {
         task.title.toLowerCase().includes(searchQuery.toLowerCase())
     ),
   };
-
+  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+  if (!isAuthenticated) {
+    return <LoginPage onLogin={() => setIsAuthenticated(true)} />;
+  }
   return (
       <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
         <GlobalStyle />
